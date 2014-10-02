@@ -140,7 +140,7 @@ class SearchFeature(Feature):
             doc = dict((k, doc[k]) for k in fields)
         if extra_doc:
             doc.update(extra_doc)
-        return self.index(doc_type, obj.pk(), doc, **kwargs)
+        return self.index(doc_type, obj.id, doc, **kwargs)
 
     def _index_model_on_change(self, backend, obj):
         for name, fields in self.options["index_models"].iteritems():
@@ -155,7 +155,7 @@ class SearchFeature(Feature):
 
     @action("delete_search_model", default_option="obj")
     def delete_model(self, obj, **kwargs):
-        return self.delete(obj.__class__.__name__.lower(), obj.pk(), **kwargs)
+        return self.delete(obj.__class__.__name__.lower(), obj.id, **kwargs)
 
     def _delete_model_on_change(self, backend, obj):
         for name, fields in self.options["index_models"].iteritems():
