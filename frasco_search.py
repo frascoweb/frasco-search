@@ -201,7 +201,7 @@ class SearchFeature(Feature):
     def autocomplete(self, doc_type, field, text, index=None):
         index = self.get_index(doc_type, index)
         field = "suggest_%s" % prop
-        body = dict([("autocomplete", {"text": text, "completion": {"field": field}})])
+        body = {"autocomplete", {"text": text, "completion": {"field": field}}}
         try:
             res = self.es.suggest(index=index, body=body)
         except Exception as e:
@@ -241,6 +241,9 @@ class SearchResults(object):
                     yield obj
             else:
                 yield AttrDict(hit)
+
+    def for_json(self):
+        return list(self)
 
     @property
     def prev_page(self):
