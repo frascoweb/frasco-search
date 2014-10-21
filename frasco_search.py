@@ -140,7 +140,7 @@ class SearchFeature(Feature):
             doc = dict((k, doc[k]) for k in fields)
         if extra_doc:
             doc.update(extra_doc)
-        return self.index(doc_type, obj.id, doc, **kwargs)
+        return self.index(doc_type, str(obj.id), doc, **kwargs)
 
     def _index_model_on_change(self, backend, obj):
         for name, fields in self.options["index_models"].iteritems():
