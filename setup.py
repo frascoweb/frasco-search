@@ -1,14 +1,6 @@
 from setuptools import setup
 
 
-def desc():
-    with open("README.md") as f:
-        return f.read()
-
-def reqs():
-    with open('requirements.txt') as f:
-        return f.read().splitlines()
-
 setup(
     name='frasco-search',
     version='0.1',
@@ -17,8 +9,11 @@ setup(
     author='Maxime Bouroumeau-Fuseau',
     author_email='maxime.bouroumeau@gmail.com',
     description="Elastisearch integration for Frasco",
-    long_description=desc(),
     py_modules=['frasco_search'],
+    zip_safe=False,
     platforms='any',
-    install_requires=reqs() + ['frasco']
+    install_requires=[
+        # 'frasco',
+        'elasticsearch>=1.2.0'
+    ]
 )
