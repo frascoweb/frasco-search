@@ -183,7 +183,7 @@ class SearchFeature(Feature):
         try:
             res = self.es.search(index=index, **kwargs)
         except Exception as e:
-            current_app.logger.error(e)
+            current_app.log_exception(e)
             res = None
         return SearchResults(res, kwargs.get("q"), per_page, page, obj_loader)
 
@@ -205,10 +205,9 @@ class SearchFeature(Feature):
         try:
             res = self.es.suggest(index=index, body=body)
         except Exception as e:
-            current_app.logger.error(e)
+            current_app.log_exception(e)
             return []
         if "autocomplete" not in res:
-            current_app.logger.error(res)
             return []
         suggestions = []
         for option in res["autocomplete"][0]["options"]:
